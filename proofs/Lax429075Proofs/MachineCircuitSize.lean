@@ -24,18 +24,18 @@ lemma guard_cost (M : SingleTape) (radius : ℕ) (q : M.Q) (i : Position radius)
     (guard M radius q i a).cost = 2 := rfl
 
 lemma caseResult_cost (M : SingleTape) (radius : ℕ) (b : Bit M radius)
-    (q : M.Q) (i : Position radius) (a : M.Γ) : (caseResult M radius b q i a).cost ≤ 1 := by
+    (q : M.Q) (i : Position radius) (a : M.Γ) : (caseResult M radius b q i a).cost = 1 := by
   classical
   rcases b with q' | i' | ⟨j, a'⟩
-  · exact le_rfl
-  · exact le_rfl
+  · rfl
+  · rfl
   · unfold caseResult
     cases M.transition q a with
-    | none => exact Nat.zero_le 1
+    | none => rfl
     | some p =>
       obtain ⟨r, op⟩ := p
       cases op with
-      | move dir => cases dir <;> exact Nat.zero_le 1
+      | move dir => cases dir <;> rfl
       | write c =>
         dsimp only
         split_ifs <;> simp [Expr.cost, wire]

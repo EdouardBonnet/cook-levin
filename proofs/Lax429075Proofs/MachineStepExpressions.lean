@@ -25,8 +25,8 @@ noncomputable def caseResult (M : SingleTape) (radius : ℕ) (b : Bit M radius)
   | .inr (.inr (j, a')) =>
     match M.transition q a with
     | some (_, .write c) => if j = i then .constant (decide (c = a'))
-        else wire M radius (.inr (.inr (j, a')))
-    | _ => wire M radius (.inr (.inr (j, a')))
+        else .conj (wire M radius (.inr (.inr (j, a')))) (wire M radius (.inr (.inr (j, a'))))
+    | _ => .conj (wire M radius (.inr (.inr (j, a')))) (wire M radius (.inr (.inr (j, a'))))
 
 lemma caseResult_bounded (M : SingleTape) (radius : ℕ) (b : Bit M radius)
     (q : M.Q) (i : Position radius) (a : M.Γ) :
@@ -37,14 +37,14 @@ lemma caseResult_bounded (M : SingleTape) (radius : ℕ) (b : Bit M radius)
   · trivial
   · unfold caseResult
     cases M.transition q a with
-    | none => exact wire_bounded _ _ _
+    | none => exact ⟨wire_bounded _ _ _, wire_bounded _ _ _⟩
     | some p =>
       obtain ⟨r, op⟩ := p
       cases op with
-      | move dir => cases dir <;> exact wire_bounded _ _ _
+      | move dir => cases dir <;> exact ⟨wire_bounded _ _ _, wire_bounded _ _ _⟩
       | write c =>
         dsimp only
-        split_ifs <;> first | trivial | exact wire_bounded _ _ _
+        split_ifs <;> first | trivial | exact ⟨wire_bounded _ _ _, wire_bounded _ _ _⟩
 
 lemma caseResult_eval (M : SingleTape) (radius : ℕ) (b : Bit M radius) (c : Cfg M radius) :
     (caseResult M radius b c.state c.head (c.cells c.head)).eval (values (encode M radius c)) =
