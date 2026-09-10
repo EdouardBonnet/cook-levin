@@ -21,7 +21,7 @@ def encodeList {α : Type} (encode : α → Word) : List α → Word
 
 def encodeNat (n : ℕ) : Word := List.replicate n true ++ [false]
 
-def encodeLiteral (l : Literal) : Word := encodeNat l.variable ++ [l.positive]
+def encodeLiteral (l : Literal) : Word := encodeNat l.index ++ [l.positive]
 
 def encodeClause : Clause → Word := encodeList encodeLiteral
 

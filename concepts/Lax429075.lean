@@ -7,7 +7,7 @@ import Lax429075.EncodingCorrect
 import Lax429075.FiniteWitness
 import Lax429075.GateCorrect
 import Lax429075.Reductions
-import Lax429075.SAT
+import Lax429075.Satisfiability
 import Lax429075.SATEncoding
 import Lax429075.SATHard
 import Lax429075.SATinNP

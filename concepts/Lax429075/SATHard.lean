@@ -1,4 +1,4 @@
-import Lax429075.SAT
+import Lax429075.Satisfiability
 import Lax429075.Reductions
 
 /-!
@@ -12,7 +12,7 @@ language of satisfiable CNF formulas.
 
 namespace Lax429075.SATHard
 
-open SAT Reductions Lax434930.PolynomialTime Lax434930.NondeterministicPolynomialTime
+open Satisfiability Reductions Lax434930.PolynomialTime Lax434930.NondeterministicPolynomialTime
 
 axiom hardness (A : Language) : A ∈ NP → ManyOne A SAT
 

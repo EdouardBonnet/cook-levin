@@ -13,7 +13,7 @@ empty conjunction is true. Satisfiability quantifies over Boolean assignments.
 namespace Lax429075.CNF
 
 structure Literal where
-  variable : ℕ
+  index : ℕ
   positive : Bool
   deriving DecidableEq
 
@@ -22,7 +22,7 @@ abbrev Formula := List Clause
 abbrev Assignment := ℕ → Bool
 
 def Literal.eval (l : Literal) (ρ : Assignment) : Bool :=
-  if l.positive then ρ l.variable else !(ρ l.variable)
+  if l.positive then ρ l.index else !(ρ l.index)
 
 def eval (F : Formula) (ρ : Assignment) : Bool :=
   F.all fun C => C.any fun l => l.eval ρ

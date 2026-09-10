@@ -1,4 +1,4 @@
-import Lax429075.SAT
+import Lax429075.Satisfiability
 import Lax434930.NondeterministicPolynomialTime
 
 /-!
@@ -11,7 +11,7 @@ A polynomial time verifier checks a satisfying assignment of polynomial length.
 
 namespace Lax429075.SATinNP
 
-open SAT Lax434930.NondeterministicPolynomialTime
+open Satisfiability Lax434930.NondeterministicPolynomialTime
 
 axiom membership : SAT ∈ NP
 

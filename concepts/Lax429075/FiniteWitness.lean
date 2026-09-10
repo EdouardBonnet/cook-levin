@@ -1,4 +1,4 @@
-import Lax429075.SAT
+import Lax429075.Satisfiability
 
 /-!
 ---
@@ -11,7 +11,7 @@ of its binary encoding. Only variables occurring in the formula matter.
 
 namespace Lax429075.FiniteWitness
 
-open CNF Encoding SAT Lax434930.PolynomialTime
+open CNF Encoding Satisfiability Lax434930.PolynomialTime
 
 axiom bounded (F : Formula) :
   Satisfiable F ↔ ∃ y : Word, y.length ≤ (encodeCNF F).length ∧ eval F (assignment y) = true

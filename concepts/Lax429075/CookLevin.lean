@@ -1,4 +1,4 @@
-import Lax429075.SAT
+import Lax429075.Satisfiability
 import Lax429075.Reductions
 
 /-!
@@ -11,7 +11,7 @@ Satisfiability of CNF formulas is NP-complete under polynomial many-one reductio
 
 namespace Lax429075.CookLevin
 
-open SAT Reductions
+open Satisfiability Reductions
 
 axiom np_complete : NPComplete SAT
 

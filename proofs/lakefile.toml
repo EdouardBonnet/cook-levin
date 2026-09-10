@@ -27,3 +27,9 @@ subDir = "concepts"
 
 [[lean_lib]]
 name = "Lax429075Proofs"
+
+[[require]]
+name = "Lax979537Proofs"
+git = "https://github.com/szymtor/immerman-vardi"
+rev = "82ef67e68fab884dc4cff117a1b871567bdaaafd"
+subDir = "proofs"

@@ -6,4 +6,24 @@ title: "The Cook–Levin Theorem"
 authors:
   - name: Édouard Bonnet
   - name: gpt-6-astra
-bibEntries: []
+bibEntries:
+  - |
+    @inproceedings{Cook1971,
+      author = {Stephen A. Cook},
+      title = {The Complexity of Theorem-Proving Procedures},
+      booktitle = {Proceedings of the Third Annual ACM Symposium on Theory of Computing},
+      pages = {151--158},
+      year = {1971},
+      doi = {10.1145/800157.805047}
+    }
+  - |
+    @article{Levin1973,
+      author = {Leonid A. Levin},
+      title = {Universal Sequential Search Problems},
+      journal = {Problems of Information Transmission},
+      volume = {9},
+      number = {3},
+      pages = {265--266},
+      year = {1973},
+      url = {https://www.mathnet.ru/eng/ppi914}
+    }

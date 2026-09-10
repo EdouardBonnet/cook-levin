@@ -1,4 +1,4 @@
-import Lax429075.SAT
+import Lax429075.Satisfiability
 
 /-!
 ---
@@ -10,7 +10,7 @@ An encoded formula belongs to the SAT language exactly when the formula is satis
 
 namespace Lax429075.SATEncoding
 
-open CNF Encoding SAT
+open CNF Encoding Satisfiability
 
 axiom correct (F : Formula) : encodeCNF F ∈ SAT ↔ Satisfiable F
 
