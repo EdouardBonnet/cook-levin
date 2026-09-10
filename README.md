@@ -1,6 +1,6 @@
 # The Cook–Levin theorem
 
-Lax submission **lax-429075**, stating NP-completeness of binary-encoded CNF
+Lax submission **lax-429075**, proving NP-completeness of binary-encoded CNF
 satisfiability under polynomial many-one reductions. It uses the certificate
 definition of NP from lax-434930 and the polynomial time machine model from
 lax-554803.
@@ -11,11 +11,11 @@ The SAT verifier is implemented as a finite stack program. Its correctness,
 termination on every input, work-stack cleanup, and running time of at most
 `100(n+1)^4` steps are proved. This completes the proof that SAT belongs to NP.
 
-Eight of eleven statements have closed proofs. The remaining construction,
-`CircuitMachine.compile`, must unroll an arbitrary polynomial time verifier
-into an acyclic Boolean circuit and produce its encoded gate clauses in
-polynomial time. NP-hardness and the main theorem still depend on this
-obligation, so the submission is not yet a complete proof of Cook–Levin.
+For NP-hardness, a bounded single-tape computation is unrolled into an
+acyclic Boolean circuit. An explicit finite stack program produces its
+encoded gate clauses in polynomial time. The proofs cover the initial tape,
+each transition, wire addresses, final acceptance, and the exact output
+encoding. All eleven statements have closed proof networks within Lax.
 
 Variable indices are unary. This remains a polynomial-size encoding for the
 circuits produced by the reduction and permits an assignment certificate

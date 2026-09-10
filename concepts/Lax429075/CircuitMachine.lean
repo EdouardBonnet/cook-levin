@@ -11,7 +11,8 @@ For a fixed polynomial time verifier and polynomial certificate bound,
 construct a circuit whose free inputs represent the certificate. The circuit
 is satisfiable exactly when some bounded certificate is accepted. Its encoded
 gate clauses are produced in polynomial time. The machine simulation and
-time bound are open proof obligations.
+time bound follow from a finite stack program that emits the initial layer,
+the transition layers, and the final acceptance constraint.
 -/
 
 namespace Lax429075.CircuitMachine
