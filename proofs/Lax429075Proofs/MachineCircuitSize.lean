@@ -3,7 +3,7 @@ import Lax429075Proofs.CircuitRounds
 
 namespace Lax429075Proofs.MachineCircuit
 
-open Turing Lax554803.MachineModels
+open Turing Lax434930.MachineModels
 open WindowMachine CircuitBuilder
 
 lemma sum_cost_bound (es : List Expr) (bound : ℕ) (h : ∀ e ∈ es, e.cost ≤ bound) :

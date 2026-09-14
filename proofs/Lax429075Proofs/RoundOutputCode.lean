@@ -2,7 +2,7 @@ import Lax429075Proofs.RoundGateStream
 
 namespace Lax429075Proofs.Streaming
 
-open Lax434930.PolynomialTime Lax554803.MachineModels
+open Lax434930.PolynomialTime Lax434930.MachineModels
 open MachineCircuit CircuitBuilder
 
 variable {I : Type}

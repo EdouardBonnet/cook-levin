@@ -2,7 +2,7 @@ import Lax429075Proofs.AbsorbingRuns
 
 namespace Lax429075Proofs.AbsoluteTape
 
-open Turing Lax554803.MachineModels Lax554803.PolynomialTime
+open Turing Lax434930.MachineModels Lax434930.PolynomialTime
 
 def Inside (radius : ℕ) (j : ℤ) : Prop := -(radius : ℤ) ≤ j ∧ j ≤ (radius : ℤ)
 

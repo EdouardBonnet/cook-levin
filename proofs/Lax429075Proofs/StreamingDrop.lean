@@ -1,9 +1,11 @@
 import Lax429075Proofs.StreamingSource
 import Lax429075Proofs.StackDrop
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.Streaming
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer Lax979537Proofs.StackCopy
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer Lax434930Proofs.InclusionAux.TimeCompiler.StackCopy
 open Lax434930.PolynomialTime Polynomial
 
 variable {I : Type} [DecidableEq I]
@@ -26,7 +28,7 @@ lemma dropStore_first (a : I → Word) (tail : Word) (scratch : Option Bool) (so
       (dropStore a tail [] (a source) none) (7 * (a source).length + 4) := by
   have h := copy_store (Key.input source) (.work DropSlot.buffer) (.work .temporary)
     (by simp) (by simp) (by simp) (store a tail scratch) rfl
-  convert h using 1
+  convert! h using 1
   apply Store.ext <;> try rfl
   funext k
   rcases k with i | _ | s <;> try simp [dropStore, store]
@@ -37,7 +39,7 @@ lemma dropStore_second (a : I → Word) (tail buffer : Word) (index : I) :
       (dropStore a tail (a index) buffer none) (7 * (a index).length + 4) := by
   have h := copy_store (Key.input index) (.work DropSlot.counter) (.work .temporary)
     (by simp) (by simp) (by simp) (dropStore a tail [] buffer none) rfl
-  convert h using 1
+  convert! h using 1
   apply Store.ext <;> try rfl
   funext k
   rcases k with i | _ | s <;> try simp [dropStore]
@@ -51,7 +53,7 @@ lemma dropStore_drop (a : I → Word) (tail counter buffer : Word) :
   obtain ⟨t, ht, he⟩ := StackDrop.dropCount_store (.work DropSlot.counter) (.work .buffer)
     (by simp) (dropStore a tail counter buffer none)
   refine ⟨t, ht, ?_⟩
-  convert he using 1
+  convert! he using 1
   apply Store.ext <;> try rfl
   funext k
   rcases k with i | _ | s <;> try simp [dropStore]
@@ -61,7 +63,7 @@ lemma dropStore_output (a : I → Word) (tail buffer : Word) :
     Executes (transfer (.work .buffer) .output) (dropStore a tail [] buffer none)
       (store a (buffer.reverse ++ tail) none) (3 * buffer.length + 2) := by
   have h := transfer_store (.work DropSlot.buffer) Key.output (by simp) (dropStore a tail [] buffer none)
-  convert h using 1
+  convert! h using 1
   apply Store.ext <;> try rfl
   funext k
   rcases k with i | _ | s <;> try simp [dropStore, store]

@@ -33,7 +33,7 @@ def assemble (inputs : ℕ) (gates : List Gate) (out : ℕ)
   gates := List.replicate inputs Gate.input ++ gates
   output := ⟨out, by simpa using hout⟩
   ordered := by
-    simpa using ordered_append 0 (List.replicate inputs Gate.input) gates
+    simpa using! ordered_append 0 (List.replicate inputs Gate.input) gates
       (ordered_inputs 0 inputs) (by simpa using horder)
 
 lemma assemble_check (inputs : ℕ) (gates : List Gate) (out : ℕ)

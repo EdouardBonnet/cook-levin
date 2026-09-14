@@ -2,7 +2,7 @@ import Lax429075Proofs.LiteralExecution
 
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax979537Proofs.StackProgram
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram
 
 lemma loop_suffix_step {p q : Code} {b : Control → Bool} {s u t : Data} {a c : ℕ}
     (hb : b s.state = true) (hp : Executes p s u a)

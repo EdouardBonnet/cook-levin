@@ -1,5 +1,7 @@
 import Lax429075Proofs.OutputTests
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.Streaming
 
 open Lax434930.PolynomialTime

@@ -5,7 +5,7 @@ import Lax429075Proofs.InitialCircuit
 
 namespace Lax429075Proofs.Streaming
 
-open Lax434930.PolynomialTime Lax554803.MachineModels
+open Lax434930.PolynomialTime Lax434930.MachineModels
 open CertificateCircuit CircuitBuilder MachineCircuit WindowMachine
 open scoped Classical
 

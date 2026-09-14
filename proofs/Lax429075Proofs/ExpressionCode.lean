@@ -1,6 +1,8 @@
 import Lax429075Proofs.OutputGates
 import Lax429075Proofs.CircuitAddresses
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.Streaming
 
 open Lax434930.PolynomialTime CircuitBuilder

@@ -1,9 +1,11 @@
-import Lax979537Proofs.StackTransfer
+import Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
 import Mathlib.Tactic
+
+set_option backward.isDefEq.respectTransparency false
 
 namespace Lax429075Proofs.StackMapTransfer
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
 
 variable {K Aux : Type} [DecidableEq K]
 
@@ -36,7 +38,7 @@ lemma loop_executes (base : K → List Bool) (src dst : K) (hne : src ≠ dst)
     rw [pop_working base src dst hne] at hr
     have hh := Executes.loop_true (p := body src dst f)
       (b := fun s : Aux × Option Bool => s.2.isSome) rfl (.seq hp hr) (ih (f b :: ys))
-    convert hh using 1 <;> simp [List.reverse_cons, List.append_assoc] <;> omega
+    convert! hh using 1 <;> simp [List.reverse_cons, List.append_assoc] <;> omega
 
 lemma transfer_executes (base : K → List Bool) (src dst : K) (hne : src ≠ dst)
     (f : Bool → Bool) (xs ys : List Bool) (a : Aux) (scratch : Option Bool) :
@@ -45,7 +47,7 @@ lemma transfer_executes (base : K → List Bool) (src dst : K) (hne : src ≠ ds
   have hr := Executes.atom (.pop src (fun s : Aux × Option Bool => fun b => (s.1, b)))
     (working base src dst xs ys a scratch)
   rw [pop_working base src dst hne] at hr
-  convert Executes.seq hr (loop_executes base src dst hne f xs ys a) using 1 <;> omega
+  convert! Executes.seq hr (loop_executes base src dst hne f xs ys a) using 1 <;> omega
 
 lemma transfer_store (src dst : K) (hne : src ≠ dst) (f : Bool → Bool) (s : BitStore K Aux) :
     Executes (transfer src dst f) s

@@ -1,5 +1,7 @@
 import Lax429075Proofs.Encoding
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs
 
 open Lax429075 Lax429075.CNF Lax429075.Encoding Lax434930.PolynomialTime
@@ -82,7 +84,7 @@ lemma decode_cnf_sound (w : Word) (F : Formula) (h : decodeCNF w = some F) : enc
     · subst rest
       simp only [↓reduceIte, Option.some.injEq] at h
       subst F
-      simpa using (parse_list_sound encodeClause parseClause parse_clause_sound w.length w G [] hp).symm
+      simpa using! (parse_list_sound encodeClause parseClause parse_clause_sound w.length w G [] hp).symm
     · simp [hr] at h
 
 end Lax429075Proofs

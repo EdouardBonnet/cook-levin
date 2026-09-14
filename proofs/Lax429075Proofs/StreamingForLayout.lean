@@ -1,11 +1,13 @@
 import Lax429075Proofs.StreamingBind
 import Lax429075Proofs.StreamingSource
-import Lax979537Proofs.StackFor
+import Lax434930Proofs.InclusionAux.TimeCompiler.StackFor
+
+set_option backward.isDefEq.respectTransparency false
 
 namespace Lax429075Proofs.Streaming
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
-open Lax979537Proofs.StackRename Lax979537Proofs.StackFor CNFOutput Lax434930.PolynomialTime
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackRename Lax434930Proofs.InclusionAux.TimeCompiler.StackFor CNFOutput Lax434930.PolynomialTime
 
 variable {I W : Type} [DecidableEq I] [DecidableEq W]
 
@@ -48,11 +50,11 @@ lemma forStore_start (a : I → Word) (n : ℕ) (tail : Word) (scratch : Option 
   cases s <;> simp [emitted, store, forStore]
 
 lemma forStore_clear (a : I → Word) (n : ℕ) (tail : Word) :
-    Executes (Lax979537Proofs.StackClear.clear (.work (.inl ForSlot.domain)))
+    Executes (Lax434930Proofs.InclusionAux.TimeCompiler.StackClear.clear (.work (.inl ForSlot.domain)))
       (forStore (W := W) a n tail) (store a tail none) (2 * n + 2) := by
-  have h := Lax979537Proofs.StackClear.clear_store (.work (.inl ForSlot.domain))
+  have h := Lax434930Proofs.InclusionAux.TimeCompiler.StackClear.clear_store (.work (.inl ForSlot.domain))
     (forStore (W := W) a n tail)
-  convert h using 1
+  convert! h using 1
   · apply Store.ext <;> try rfl
     funext k
     rcases k with i | _ | (s | (b | w)) <;> try simp [store, forStore]

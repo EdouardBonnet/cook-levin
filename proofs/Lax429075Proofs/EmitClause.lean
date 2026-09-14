@@ -1,8 +1,10 @@
 import Lax429075Proofs.EmitLiteral
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.CNFOutput
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
 open Lax429075.Encoding Lax429075.CNF Lax434930.PolynomialTime
 
 variable {K Aux : Type} [DecidableEq K]
@@ -47,7 +49,7 @@ lemma emitClause_executes (out tmp : K) (hot : out ≠ tmp)
         simpa [middle, first, emitted_source out q.1 hq'] using hvalues q (by simp [hq]))
       (by simpa [middle, first, emitted_source out tmp (Ne.symm hot)] using ht) rfl
     have h := Executes.seq hm (.seq hl he)
-    convert h using 1 <;>
+    convert! h using 1 <;>
       simp [middle, first, clauseValue, clauseCost, encodeClause, encodeList,
         emitted_append, List.append_assoc] <;> omega
 

@@ -1,8 +1,10 @@
 import Lax429075Proofs.InitialCellCode
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.Streaming
 
-open Lax434930.PolynomialTime Lax554803.MachineModels
+open Lax434930.PolynomialTime Lax434930.MachineModels
 open CertificateCircuit CircuitBuilder
 open scoped Classical
 
@@ -16,7 +18,7 @@ lemma knownSymbol_prefix (M : SingleTape) (x : Word) (i : ℕ) (hi : i < (paired
     have hn := List.getElem?_eq_none_iff.mp h
     omega
   | some b =>
-    have hb : b = prefixBit x i := by simpa only [h, Option.getD_some] using hp
+    have hb : b = prefixBit x i := by simpa only [h, Option.getD_some] using! hp
     simp [knownSymbol, h, hb]
 
 lemma knownSymbol_test (M : SingleTape) (input : I) (i : Number I) (symbol : M.Γ) (a : I → Word)

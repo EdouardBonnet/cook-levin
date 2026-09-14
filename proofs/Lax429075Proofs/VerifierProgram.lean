@@ -1,11 +1,13 @@
-import Lax979537Proofs.StackCopy
-import Lax979537Proofs.StackClear
+import Lax434930Proofs.InclusionAux.TimeCompiler.StackCopy
+import Lax434930Proofs.InclusionAux.TimeCompiler.StackClear
 import Lax429075Proofs.DecoderSoundness
+
+set_option backward.isDefEq.respectTransparency false
 
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
-open Lax979537Proofs
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler
 
 inductive Register where
   | input | formula | reverse | cursor | temporary | output

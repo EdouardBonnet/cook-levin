@@ -1,9 +1,11 @@
-import Lax979537Proofs.StackCopy
+import Lax434930Proofs.InclusionAux.TimeCompiler.StackCopy
 import Lax429075.Encoding
+
+set_option backward.isDefEq.respectTransparency false
 
 namespace Lax429075Proofs.CNFOutput
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
 open Lax429075.Encoding Lax429075.CNF Lax434930.PolynomialTime
 
 variable {K Aux : Type} [DecidableEq K]
@@ -30,13 +32,13 @@ def emitBit (out : K) (value : Aux → Bool) : BitProgram K Aux :=
 
 lemma emitBit_executes (out : K) (value : Aux → Bool) (s : BitStore K Aux) (hs : s.state.2 = none) :
     Executes (emitBit out value) s (emitted out [value s.state.1] s) 1 := by
-  convert Executes.atom (.push out (fun q : Aux × Option Bool => value q.1)) s using 1
+  convert! Executes.atom (.push out (fun q : Aux × Option Bool => value q.1)) s using 1
   apply Store.ext
   · simp [Op.apply, emitted, ← hs]
   · simp [Op.apply, emitted]
 
 def emitLiteral (out tmp index : K) (sign : Aux → Bool) : BitProgram K Aux :=
-  .seq (Lax979537Proofs.StackCopy.copy index out tmp)
+  .seq (Lax434930Proofs.InclusionAux.TimeCompiler.StackCopy.copy index out tmp)
     (.seq (emitBit out (fun _ => false)) (emitBit out sign))
 
 lemma emitLiteral_executes (out tmp index : K) (sign : Aux → Bool)
@@ -44,7 +46,7 @@ lemma emitLiteral_executes (out tmp index : K) (sign : Aux → Bool)
     (s : BitStore K Aux) (n : ℕ) (hn : s.stk index = List.replicate n true) (ht : s.stk tmp = []) :
     Executes (emitLiteral out tmp index sign) s
       (emitted out (encodeLiteral ⟨n, sign s.state.1⟩) s) (7 * n + 6) := by
-  have hc := Lax979537Proofs.StackCopy.copy_store index out tmp hio hit hot s ht
+  have hc := Lax434930Proofs.InclusionAux.TimeCompiler.StackCopy.copy_store index out tmp hio hit hot s ht
   have he : (⟨(s.state.1, none), Function.update s.stk out (s.stk index ++ s.stk out)⟩ : BitStore K Aux) =
       emitted out (List.replicate n true) s := by simp [emitted, hn]
   rw [he, hn, List.length_replicate] at hc
@@ -52,6 +54,6 @@ lemma emitLiteral_executes (out tmp index : K) (sign : Aux → Bool)
   have hs := emitBit_executes out sign (emitted out [false] (emitted out (List.replicate n true) s)) rfl
   have h := Executes.seq hc (.seq hz hs)
   simp only [emitted_append] at h
-  convert h using 1 <;> simp [encodeLiteral, encodeNat, List.append_assoc] <;> omega
+  convert! h using 1 <;> simp [encodeLiteral, encodeNat, List.append_assoc] <;> omega
 
 end Lax429075Proofs.CNFOutput

@@ -2,7 +2,7 @@ import Lax429075Proofs.VerifierEncodingWord
 
 namespace Lax429075Proofs.Streaming
 
-open Lax434930.PolynomialTime Lax554803.MachineModels
+open Lax434930.PolynomialTime Lax434930.MachineModels
 open Lax429075.CNF Lax429075.Circuits Lax429075.Encoding Lax429075.Tseitin
 open CircuitBuilder CertificateCircuit
 

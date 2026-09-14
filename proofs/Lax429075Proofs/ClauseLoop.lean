@@ -1,9 +1,11 @@
 import Lax429075Proofs.ClauseParsing
 import Lax429075Proofs.LoopSuffix
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram
 
 def clauseTail : Code := .seq (.loop continuing clauseBody) requireTerminator
 
@@ -20,7 +22,7 @@ lemma clauseTail_executes (xs ys : Word) (flags : Flags) (hv : flags.valid = tru
       have h := Executes.seq (Executes.loop_false (p := clauseBody)
         (b := continuing) (s := parsing [] ys [] flags none) (by simp [continuing, parsing]))
         (parsing_require [] ys [] flags none)
-      simpa [clauseTail, scanClause, scanMany, clauseFlags, clauseValue] using h
+      simpa [clauseTail, scanClause, scanMany, clauseFlags, clauseValue] using! h
     | cons b xs =>
       cases b with
       | false =>
@@ -31,7 +33,7 @@ lemma clauseTail_executes (xs ys : Word) (flags : Flags) (hv : flags.valid = tru
         have h := Executes.seq (Executes.loop_false (p := clauseBody)
           (b := continuing) (s := parsing xs ys [] flags (some false))
           (by simp [continuing, parsing])) (parsing_require xs ys [] flags (some false))
-        simpa [clauseTail, scanClause, scanMany, clauseFlags, clauseValue, hv] using h
+        simpa [clauseTail, scanClause, scanMany, clauseFlags, clauseValue, hv] using! h
       | true =>
         have hl := literal_executes xs ys flags (some true) hv
         have hr := parsing_read (scanLiteral xs).rest ys [] (literalFlags xs ys flags) none
@@ -65,6 +67,6 @@ lemma clauseTail_executes (xs ys : Word) (flags : Flags) (hv : flags.valid = tru
             simp only [List.length_cons]
             nlinarith [Nat.zero_le (xs.length * ys.length)]
           · rw [clauseFlags_cons] at h
-            simpa only [clauseTail, clauseBody, scanClause, scanMany, ha, Bool.true_and] using h
+            simpa only [clauseTail, clauseBody, scanClause, scanMany, ha, Bool.true_and] using! h
 
 end Lax429075Proofs.VerifierProgram

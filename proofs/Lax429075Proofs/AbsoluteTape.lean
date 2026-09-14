@@ -1,9 +1,9 @@
-import Lax554803.ModelEquivalence
+import Lax434930.ModelEquivalence
 import Mathlib.Tactic
 
 namespace Lax429075Proofs.AbsoluteTape
 
-open Turing Lax554803.MachineModels Lax554803.PolynomialTime
+open Turing Lax434930.MachineModels Lax434930.PolynomialTime
 
 structure Cfg (M : SingleTape) where
   state : M.Q

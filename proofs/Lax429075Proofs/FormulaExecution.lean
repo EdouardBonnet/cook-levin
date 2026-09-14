@@ -2,7 +2,7 @@ import Lax429075Proofs.FormulaLoop
 
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram
 
 def endCheck : Code := .atom (.load (fun s => ({s.1 with valid := s.1.valid && s.2.isNone}, s.2)))
 

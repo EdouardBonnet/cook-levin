@@ -2,7 +2,7 @@ import Lax429075Proofs.AbsoluteTape
 
 namespace Lax429075Proofs.AbsoluteTape
 
-open Turing Lax554803.MachineModels Lax554803.PolynomialTime
+open Turing Lax434930.MachineModels Lax434930.PolynomialTime
 
 lemma absorbing_iterate (M : SingleTape) (n : ℕ) {c d : TM0.Cfg M.Γ M.Q}
     (h : (fun q : Option (TM0.Cfg M.Γ M.Q) => q.bind (TM0.step M.transition))^[n]

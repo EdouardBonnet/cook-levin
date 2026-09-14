@@ -1,10 +1,10 @@
 import Lax429075Proofs.EmitFormula
-import Lax979537Proofs.StackRename
+import Lax434930Proofs.InclusionAux.TimeCompiler.StackRename
 
 namespace Lax429075Proofs.Streaming
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
-open Lax979537Proofs.StackRename CNFOutput Lax434930.PolynomialTime
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackRename CNFOutput Lax434930.PolynomialTime
 
 inductive Key (I W : Type) where
   | input (i : I)

@@ -2,9 +2,9 @@ import Lax429075Proofs.StreamingForLayout
 
 namespace Lax429075Proofs.Streaming
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
-open Lax979537Proofs.StackRename Lax979537Proofs.StackFor
-open Lax979537Proofs.StackClear (clear)
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackRename Lax434930Proofs.InclusionAux.TimeCompiler.StackFor
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackClear (clear)
 open CNFOutput Lax434930.PolynomialTime Polynomial
 
 variable {I : Type} [DecidableEq I]

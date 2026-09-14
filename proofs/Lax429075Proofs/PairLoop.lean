@@ -1,8 +1,10 @@
 import Lax429075Proofs.PairSteps
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram
 
 lemma decodingLoop_end (base : Register → Word) (xs rev : Word) (conj disj : Bool) :
     Executes decodingLoop (decodingData base (true :: xs) rev conj disj)
@@ -41,6 +43,6 @@ lemma decodingLoop_executes (base : Register → Word) (xs rev : Word) (conj dis
         (decodingBody_cons base xs rev c conj disj) (ih (c :: rev))
       rw [decodingDone_cons] at h
       have ht : 6 + decodeCost xs + 1 = 7 + decodeCost xs := by omega
-      simpa only [ht] using h
+      simpa only [ht] using! h
 
 end Lax429075Proofs.VerifierProgram

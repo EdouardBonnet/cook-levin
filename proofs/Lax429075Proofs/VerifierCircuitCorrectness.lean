@@ -4,7 +4,7 @@ import Lax429075Proofs.CertificateRepresentation
 namespace Lax429075Proofs.VerifierCircuit
 
 open Lax434930.PolynomialTime Lax434930.Certificates Lax429075 Lax429075.CNF Lax429075.Circuits
-open Lax554803.MachineModels CircuitBuilder CertificateCircuit MachineCircuit
+open Lax434930.MachineModels CircuitBuilder CertificateCircuit MachineCircuit
 
 lemma body_value (M : SingleTape) (x : Word) (bound radius : ℕ) (ρ : Assignment) (y : Word)
     (hy : CertificateCircuit.Represents bound ρ y)

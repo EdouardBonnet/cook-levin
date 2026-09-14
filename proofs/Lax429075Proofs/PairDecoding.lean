@@ -1,6 +1,8 @@
 import Lax429075Proofs.VerifierProgram
 import Lax434930.Certificates
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.VerifierProgram
 
 open Lax434930.PolynomialTime Lax434930.Certificates

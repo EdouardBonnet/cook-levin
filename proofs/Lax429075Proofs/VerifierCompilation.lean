@@ -4,7 +4,7 @@ import Lax429075Proofs.CircuitSizeBounds
 namespace Lax429075Proofs.VerifierCircuit
 
 open Lax434930.PolynomialTime Lax434930.Certificates Lax429075
-open Lax554803.MachineModels
+open Lax434930.MachineModels
 
 lemma verifier_circuits (V : Language) (hV : V ∈ P) (p : Polynomial ℕ) :
     ∃ (M : SingleTape) (R : Polynomial ℕ), ∀ x : Word,

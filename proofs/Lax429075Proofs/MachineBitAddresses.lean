@@ -2,7 +2,7 @@ import Lax429075Proofs.MachineBits
 
 namespace Lax429075Proofs.MachineCircuit
 
-open Lax554803.MachineModels WindowMachine
+open Lax434930.MachineModels WindowMachine
 
 noncomputable def stateIndex (M : SingleTape) (q : M.Q) : ℕ := (Fintype.equivFin M.Q q).val
 

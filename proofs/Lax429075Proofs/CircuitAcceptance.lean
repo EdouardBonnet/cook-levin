@@ -3,7 +3,7 @@ import Lax429075Proofs.InitialCircuit
 namespace Lax429075Proofs.CertificateCircuit
 
 open Lax434930.PolynomialTime Lax429075.CNF
-open Lax554803.MachineModels CircuitBuilder WindowMachine
+open Lax434930.MachineModels CircuitBuilder WindowMachine
 open scoped Classical
 
 noncomputable def acceptanceExpr (M : SingleTape) (radius : ℕ) : Expr :=

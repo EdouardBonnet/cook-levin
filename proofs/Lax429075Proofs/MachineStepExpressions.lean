@@ -2,7 +2,7 @@ import Lax429075Proofs.MachineBits
 
 namespace Lax429075Proofs.MachineCircuit
 
-open Turing Lax554803.MachineModels Lax554803.PolynomialTime
+open Turing Lax434930.MachineModels Lax434930.PolynomialTime
 open WindowMachine CircuitBuilder
 
 def nextState (M : SingleTape) (q : M.Q) (a : M.Γ) : M.Q :=

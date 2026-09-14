@@ -2,8 +2,8 @@ import Lax429075Proofs.OutputCode
 
 namespace Lax429075Proofs.Streaming
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer Lax979537Proofs.StackRename
-open Lax979537Proofs.StackClear (clear clear_store)
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer Lax434930Proofs.InclusionAux.TimeCompiler.StackRename
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackClear (clear clear_store)
 open CNFOutput Lax434930.PolynomialTime Polynomial Turing
 
 lemma Code.polynomial_time (c : Code Unit) :
@@ -12,7 +12,7 @@ lemma Code.polynomial_time (c : Code Unit) :
   let K := Key Unit (Option p.Workspace)
   let input : K := .input ()
   let output : K := .work none
-  let program : BitProgram K Unit := .seq (Lax979537Proofs.StackRename.rename (workMap some) p.program)
+  let program : BitProgram K Unit := .seq (Lax434930Proofs.InclusionAux.TimeCompiler.StackRename.rename (workMap some) p.program)
     (.seq (clear input) (transfer .output output))
   apply program_polytime program input output ((), none) id id
     (fun x => c.eval (fun _ => x)) (C 4 * p.bound + C 2 * X + C 4)

@@ -2,7 +2,7 @@ import Lax429075Proofs.MachineCircuitSize
 
 namespace Lax429075Proofs.MachineCircuit
 
-open Turing Lax554803.MachineModels
+open Turing Lax434930.MachineModels
 open WindowMachine CircuitBuilder Lax429075.CNF
 
 lemma evaluate_rounds (M : SingleTape) (radius t : ℕ) (c : Cfg M radius) :

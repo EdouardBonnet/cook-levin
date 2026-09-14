@@ -1,0 +1,233 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm}
+\usepackage[margin=28mm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\title{The Cook--Levin Theorem}
+\author{\'{E}douard Bonnet \and Codex 5.6 and 6}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove that binary-encoded CNF satisfiability is NP-complete under polynomial many-one reductions. The proof implements a SAT verifier and a reduction from bounded computations through Boolean circuits and gate clauses. It includes correctness, termination, and polynomial running-time bounds for the machines.
+\end{abstract}
+The languages are sets of finite binary words. The complexity classes and
+machine models are those of \href{https://laxarchive.org/lax-434930/}{lax-434930}.
+The annotations connect each definition, statement, and proof below to its formal counterpart.
+
+\section{Formulas, encodings, and certificates}
+
+\begin{definition}[Conjunctive normal form]\leavevmode
+% lax begin Lax429075.CNF
+A literal names a natural-number variable and its sign. A CNF formula is a
+list of clauses, each a list of literals. Empty clauses are false and the
+empty conjunction is true. Satisfiability quantifies over Boolean assignments.
+
+% lax end Lax429075.CNF
+\end{definition}
+
+\begin{definition}[Binary encoding of CNF formulas]\leavevmode
+% lax begin Lax429075.Encoding
+Lists use a one-bit continuation marker and a zero-bit terminator.
+A literal consists of its variable index in unary, a zero terminator, and
+its sign. This encoding gives every formula a unique binary word and bounds
+each variable index by the word length.
+
+% lax end Lax429075.Encoding
+\end{definition}
+
+\begin{lemma}[Decoding an encoded formula]\leavevmode
+% lax begin Lax429075.EncodingCorrect
+The binary decoder recovers every encoded CNF formula.
+For every formula $F$, $\operatorname{decodeCNF}(\operatorname{encodeCNF}(F))=\operatorname{some}(F)$.
+% lax end Lax429075.EncodingCorrect
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.encoding_roundtrip
+Induction proves that parsing an encoded natural number or literal returns the original value and the untouched suffix. A second induction gives the corresponding property for lists. Apply it to clauses and then formulas; the final suffix is empty.\qedhere
+% lax end Lax429075Proofs.encoding_roundtrip
+\end{proof}
+
+\begin{definition}[The satisfiability language and verifier]\leavevmode
+% lax begin Lax429075.Satisfiability
+SAT contains precisely the encodings of satisfiable CNF formulas.
+A certificate is a finite list of truth values, extended by false outside
+its length. The verifier accepts a paired formula encoding and certificate
+when every clause is satisfied. Malformed encodings are outside the language.
+
+% lax end Lax429075.Satisfiability
+\end{definition}
+
+\begin{lemma}[Satisfiability and binary encodings]\leavevmode
+% lax begin Lax429075.SATEncoding
+An encoded formula belongs to the SAT language exactly when the formula is satisfiable.
+Thus $\operatorname{encodeCNF}(F)\in\mathrm{SAT}$ if and only if $F$ is satisfiable.
+% lax end Lax429075.SATEncoding
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.sat_encoding
+The decoding round trip makes the formula encoding injective. Unfold the SAT language and use injectivity to identify its witnessing formula with the given formula.\qedhere
+% lax end Lax429075Proofs.sat_encoding
+\end{proof}
+
+\begin{lemma}[A bounded satisfying assignment]\leavevmode
+% lax begin Lax429075.FiniteWitness
+A satisfiable formula has a certificate whose length is at most the length
+of its binary encoding. Only variables occurring in the formula matter.
+The bound is $|y|\leq |\operatorname{encodeCNF}(F)|$.
+% lax end Lax429075.FiniteWitness
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.finite_witness
+Every variable index occurring in a formula is smaller than its encoded length. Restrict a satisfying assignment to that initial segment and extend it by false elsewhere. Every occurring literal keeps its value. Conversely, the extension of any satisfying finite certificate is a satisfying assignment.\qedhere
+% lax end Lax429075Proofs.finite_witness
+\end{proof}
+
+\begin{lemma}[Correctness of the SAT verifier]\leavevmode
+% lax begin Lax429075.VerifierCorrect
+Membership in SAT is equivalent to the existence of an accepted certificate
+of length at most the input length.
+Precisely, $w\in\mathrm{SAT}$ if and only if there is a word $y$ with $|y|\leq|w|$ and $\operatorname{pair}(w,y)\in\mathrm{Verifier}$.
+% lax end Lax429075.VerifierCorrect
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.verifier_correct
+For a SAT word, take the bounded assignment certificate for its witnessing formula. Conversely, unpack an accepted pair. Injectivity of the pairing identifies its first component with the input word, and the accepted assignment proves satisfiability.\qedhere
+% lax end Lax429075Proofs.verifier_correct
+\end{proof}
+
+\begin{lemma}[Polynomial time for CNF verification]\leavevmode
+% lax begin Lax429075.VerifierTime
+A finite stack machine decodes the paired input and checks the supplied
+assignment. Its running time is polynomial in the input length, including
+on malformed encodings, using the machine model of
+\href{https://laxarchive.org/lax-434930/}{lax-434930}.
+In particular, $\mathrm{Verifier}\in\mathrm P$.
+% lax end Lax429075.VerifierTime
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.verifier_polynomial
+The finite stack program decodes the paired input, parses its formula, and evaluates each literal under the supplied assignment. Its loop invariants track the unprocessed suffix, the current clause value, and the conjunction of completed clauses. Invalid encodings terminate with rejection. The proved execution bound is $100(n+1)^4$ for an input of length $n$; the program resets its finite control, clears its work stacks, and returns a singleton Boolean. The checked compiler transfers these executions and their bound to the deterministic stack-machine model of $\mathrm P$.\qedhere
+% lax end Lax429075Proofs.verifier_polynomial
+\end{proof}
+
+\begin{lemma}[SAT belongs to NP]\leavevmode
+% lax begin Lax429075.SATinNP
+A polynomial time verifier checks a satisfying assignment of polynomial length.
+Hence $\mathrm{SAT}\in\mathrm{NP}$.
+% lax end Lax429075.SATinNP
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.sat_in_np
+Use the verifier in $\mathrm P$, the polynomial certificate bound $p(n)=n$, and the equivalence established by verifier correctness.\qedhere
+% lax end Lax429075Proofs.sat_in_np
+\end{proof}
+
+\section{Circuits and gate clauses}
+
+\begin{definition}[Boolean circuits]\leavevmode
+% lax begin Lax429075.Circuits
+A circuit is a finite sequence of input, constant, negation, conjunction,
+and disjunction gates. Every wire refers to an earlier gate, and the output
+is a gate of the circuit. A satisfying wire assignment respects every gate
+and makes the output true.
+
+% lax end Lax429075.Circuits
+\end{definition}
+
+\begin{definition}[Gate clauses]\leavevmode
+% lax begin Lax429075.Tseitin
+The Tseitin encoding assigns one variable to each gate. At most three
+clauses enforce a gate's truth table, and a unit clause requires a true
+output. Input gates have no constraints.
+
+% lax end Lax429075.Tseitin
+\end{definition}
+
+\begin{lemma}[Correctness of gate clauses]\leavevmode
+% lax begin Lax429075.GateCorrect
+The clauses for one gate hold exactly when its output agrees with its
+Boolean operation.
+
+% lax end Lax429075.GateCorrect
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.gate_correct
+For each gate constructor, enumerate the Boolean values of its input and output wires. In every case, the conjunction of its clauses is exactly the equality required by the gate operation.\qedhere
+% lax end Lax429075Proofs.gate_correct
+\end{proof}
+
+\begin{lemma}[Correctness of the circuit encoding]\leavevmode
+% lax begin Lax429075.TseitinCorrect
+The gate clauses and output clause are satisfiable exactly when the circuit is satisfiable.
+
+% lax end Lax429075.TseitinCorrect
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.tseitin_correct
+Evaluation of a concatenation is conjunction, and evaluation of the flattened gate-clause list is conjunction over the gates. Apply the gate-clause identity and the output unit clause, then quantify over the common wire assignment.\qedhere
+% lax end Lax429075Proofs.tseitin_correct
+\end{proof}
+
+\section{Polynomial reductions and NP-completeness}
+
+\begin{definition}[Polynomial many-one reductions and NP-completeness]\leavevmode
+% lax begin Lax429075.Reductions
+A polynomial many-one reduction is one polynomial time computable function
+on binary words that preserves membership. A language is NP-complete if it
+belongs to NP and every language in NP reduces to it.
+
+% lax end Lax429075.Reductions
+\end{definition}
+
+\begin{lemma}[Polynomial circuit simulation of a verifier]\leavevmode
+% lax begin Lax429075.CircuitMachine
+For a fixed polynomial time verifier and polynomial certificate bound,
+construct a circuit whose free inputs represent the certificate. The circuit
+is satisfiable exactly when some bounded certificate is accepted. Its encoded
+gate clauses are produced in polynomial time. The machine simulation and
+time bound follow from a finite stack program that emits the initial layer,
+the transition layers, and the final acceptance constraint.
+For $V\in\mathrm P$ and $p\in\mathbb N[X]$, there is a family $C_x$ such that
+\[C_x\text{ is satisfiable}\quad\Longleftrightarrow\quad
+\exists y,\ |y|\leq p(|x|)\ \text{and}\ \operatorname{pair}(x,y)\in V.\]
+The function $x\mapsto\operatorname{encodeCNF}(\operatorname{Tseitin}(C_x))$ is polynomial-time computable.
+% lax end Lax429075.CircuitMachine
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.Streaming.circuit_machine
+Choose an equivalent finite single-tape machine for the verifier. The certificate bound and the encoded pair length give a polynomial bound on the simulated run. Unroll the initial tape and successive configurations into an ordered circuit: free inputs describe the bounded certificate, local gates compute each transition, and the final output tests acceptance. The checked circuit invariants identify wire values with machine configurations and prove the required satisfiability equivalence. A finite stack program emits the initial layer, transition layers, gate clauses, and output constraint. Bounds on wire addresses, the number of gates, unary indices, and the emitting loops yield a polynomial running time for the exact binary output encoding.\qedhere
+% lax end Lax429075Proofs.Streaming.circuit_machine
+\end{proof}
+
+\begin{lemma}[NP-hardness of SAT]\leavevmode
+% lax begin Lax429075.SATHard
+Every language in NP has a polynomial many-one reduction to the binary
+language of satisfiable CNF formulas.
+
+% lax end Lax429075.SATHard
+\end{lemma}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.sat_hard
+For a language in $\mathrm{NP}$, choose its verifier and certificate polynomial. Map each input to the binary encoding of the compiled circuit's gate clauses. The compiler makes this a polynomial-time function. Circuit correctness, correctness of the gate encoding, and the SAT encoding equivalence show that this function preserves membership.\qedhere
+% lax end Lax429075Proofs.sat_hard
+\end{proof}
+
+\begin{theorem}[The Cook–Levin theorem]\leavevmode
+% lax begin Lax429075.CookLevin
+Satisfiability of CNF formulas is NP-complete under polynomial many-one reductions.
+
+% lax end Lax429075.CookLevin
+\end{theorem}
+\begin{proof}\leavevmode
+% lax begin Lax429075Proofs.cook_levin
+Combine membership of SAT in $\mathrm{NP}$ with its polynomial many-one hardness for every language in $\mathrm{NP}$.\qedhere
+% lax end Lax429075Proofs.cook_levin
+\end{proof}
+
+\end{document}

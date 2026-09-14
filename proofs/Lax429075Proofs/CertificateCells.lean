@@ -5,7 +5,7 @@ import Lax429075Proofs.CircuitPadding
 namespace Lax429075Proofs.CertificateCircuit
 
 open Lax434930.PolynomialTime Lax434930.Certificates Lax429075.CNF
-open Lax554803.MachineModels CircuitBuilder
+open Lax434930.MachineModels CircuitBuilder
 open scoped Classical
 
 def pairedPrefix (x : Word) : Word := pair x []

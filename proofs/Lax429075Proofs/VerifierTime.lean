@@ -4,7 +4,7 @@ import Lax429075.VerifierTime
 namespace Lax429075Proofs
 
 open Lax434930.PolynomialTime Lax429075.Satisfiability
-open Lax979537Proofs.StackProgram VerifierProgram
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram VerifierProgram
 
 /--
 ---

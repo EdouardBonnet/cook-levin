@@ -1,8 +1,10 @@
 import Lax429075Proofs.PairLoop
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
 
 def ready (x y : Word) (good : Bool) : Data :=
   ⟨(⟨good, false, true, false⟩, none), fun r =>
@@ -13,7 +15,7 @@ lemma initial_read (w : Word) :
       (decodingData (fun _ => []) w [] true false) 1 := by
   have he := Executes.atom (.pop Register.input (fun s : Control => fun b => (s.1, b)))
     (ioStore Register.input initial w : Data)
-  convert he using 1
+  convert! he using 1
   apply Store.ext
   · simp [ioStore, initial, Op.apply, decodingData]
   · funext r

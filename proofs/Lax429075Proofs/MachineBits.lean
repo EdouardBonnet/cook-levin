@@ -3,7 +3,7 @@ import Lax429075Proofs.CircuitVectors
 
 namespace Lax429075Proofs.MachineCircuit
 
-open Turing Lax554803.MachineModels Lax554803.PolynomialTime
+open Turing Lax434930.MachineModels Lax434930.PolynomialTime
 open WindowMachine CircuitBuilder
 
 abbrev Bit (M : SingleTape) (radius : ℕ) := M.Q ⊕ (Position radius ⊕ (Position radius × M.Γ))

@@ -3,7 +3,7 @@ import Lax429075Proofs.CircuitAssembly
 namespace Lax429075Proofs.VerifierCircuit
 
 open Lax434930.PolynomialTime Lax429075.CNF Lax429075.Circuits
-open Lax554803.MachineModels CircuitBuilder CertificateCircuit MachineCircuit
+open Lax434930.MachineModels CircuitBuilder CertificateCircuit MachineCircuit
 
 noncomputable def preparation (M : SingleTape) (x : Word) (bound radius : ℕ) : VectorBlock (bitCount M radius) :=
   compileVector (inputCount bound) (initialExpressions M x bound radius)

@@ -2,7 +2,7 @@ import Lax429075Proofs.MachineBitAddresses
 
 namespace Lax429075Proofs.MachineCircuit
 
-open Lax554803.MachineModels WindowMachine
+open Lax434930.MachineModels WindowMachine
 
 noncomputable def enumeration (A : Type) [Fintype A] : Fin (Fintype.card A) → A := by
   classical

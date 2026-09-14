@@ -1,9 +1,9 @@
 # The Cook–Levin theorem
 
-Lax submission **lax-429075**, proving NP-completeness of binary-encoded CNF
+Submission [lax-429075](https://laxarchive.org/lax-429075/), proving NP-completeness of binary-encoded CNF
 satisfiability under polynomial many-one reductions. It uses the certificate
-definition of NP from lax-434930 and the polynomial time machine model from
-lax-554803.
+definition of NP and the polynomial-time machine model from
+[lax-434930](https://laxarchive.org/lax-434930/).
 
 The argument separates binary encoding, bounded assignments, verifier
 correctness, gate truth tables, the Tseitin circuit encoding, and NP-hardness.
@@ -24,3 +24,5 @@ malformed words are excluded from the SAT language.
 
 Only the main NP-completeness statement is labeled `theorem`; supporting
 statements are `lemma`. Run `lax build . --replay` to validate the submission.
+
+The submission targets Lean and Mathlib 4.33.0 and includes an annotated companion in [paper/main.tex](paper/main.tex). The class definitions, encodings, and result statements are preserved; proof changes address imports and Lean 4.33 elaboration.

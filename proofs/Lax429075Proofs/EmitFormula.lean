@@ -1,9 +1,11 @@
 import Lax429075Proofs.EmitClause
 import Mathlib.Tactic
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.CNFOutput
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
 open Lax429075.Encoding Lax429075.CNF Lax434930.PolynomialTime
 
 variable {K Aux : Type} [DecidableEq K]
@@ -36,7 +38,7 @@ lemma emitFormula_executes (out tmp : K) (hot : out ≠ tmp)
       (emitted out (segment (formulaValue v s.state.1 spec)) s) (formulaCost v spec) := by
   induction spec generalizing s with
   | nil =>
-    simpa [emitFormula, formulaValue, segment, formulaCost, emitted_empty] using
+    simpa [emitFormula, formulaValue, segment, formulaCost, emitted_empty] using!
       Executes.atom (.load (fun q : Aux × Option Bool => (q.1, none))) s
   | cons C Cs ih =>
     have hm := emitBit_executes out (fun _ : Aux => true) s hs
@@ -55,7 +57,7 @@ lemma emitFormula_executes (out tmp : K) (hot : out ≠ tmp)
         simpa [middle, first, emitted_source out p.1 hn] using hvalues D (by simp [hD]) p hp)
       (by simpa [middle, first, emitted_source out tmp (Ne.symm hot)] using ht) rfl
     have h := Executes.seq hm (.seq hc he)
-    convert h using 1 <;>
+    convert! h using 1 <;>
       simp [middle, first, formulaValue, formulaCost, segment, emitted_append, List.append_assoc] <;> omega
 
 lemma formulaCost_bound (v : K → ℕ) (spec : List (List (LiteralPort K Aux))) (bound size : ℕ)

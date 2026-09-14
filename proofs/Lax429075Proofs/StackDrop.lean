@@ -1,9 +1,9 @@
-import Lax979537Proofs.StackRepeat
+import Lax434930Proofs.InclusionAux.TimeCompiler.StackRepeat
 import Mathlib.Tactic
 
 namespace Lax429075Proofs.StackDrop
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer Lax979537Proofs.StackRepeat
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer Lax434930Proofs.InclusionAux.TimeCompiler.StackRepeat
 
 variable {K Aux : Type} [DecidableEq K]
 
@@ -23,7 +23,7 @@ lemma result_drop (base : K → List Bool) (counter src : K) (hne : counter ≠ 
     result counter (readStore src) xs.length (working base counter src xs ys a scratch) =
       working base counter src [] (ys.drop xs.length) a none := by
   induction xs generalizing ys scratch with
-  | nil => simpa only [result, List.length_nil, List.drop_zero] using
+  | nil => simpa only [result, List.length_nil, List.drop_zero] using!
       pop_working base counter src hne [] ys a scratch
   | cons b bs ih =>
     simp only [List.length_cons, result]
@@ -44,7 +44,7 @@ lemma dropCount_executes (base : K → List Bool) (counter src : K) (hne : count
     (fun s _ => ⟨1, le_refl _, Executes.atom _ _⟩)
     (working base counter src xs ys a scratch) trivial
   have hs : (working base counter src xs ys a scratch).stk counter = xs := by simp [working, hne]
-  simpa only [hs, result_drop base counter src hne, Nat.reduceAdd] using h
+  simpa only [hs, result_drop base counter src hne, Nat.reduceAdd] using! h
 
 lemma dropCount_store (counter src : K) (hne : counter ≠ src) (s : BitStore K Aux) :
     ∃ t, t ≤ 3 * (s.stk counter).length + 2 ∧ Executes (dropCount counter src) s

@@ -1,9 +1,11 @@
 import Lax429075Proofs.TransitionTermCode
 import Lax429075Proofs.ExpressionFold
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.Streaming
 
-open Lax434930.PolynomialTime Lax554803.MachineModels
+open Lax434930.PolynomialTime Lax434930.MachineModels
 open MachineCircuit WindowMachine CircuitBuilder
 
 variable {I : Type}
@@ -17,8 +19,8 @@ lemma range_map_ofFn {A : Type} (n : ℕ) (f : ℕ → A) (g : Fin n → A)
   apply List.ext_getElem
   · simp
   · intro i hi hj
-    have hi' : i < n := by simpa using hi
-    simpa using h ⟨i, hi'⟩
+    have hi' : i < n := by simpa using! hi
+    simpa using! h ⟨i, hi'⟩
 
 noncomputable def stepCode (M : SingleTape) (radius base pitch bit : Number I) : Expression I :=
   Expression.fold false (caseCountNumber M radius) (.constant 4)
@@ -46,7 +48,7 @@ lemma stepCode_value (M : SingleTape) (radius base pitch bit : Number I) (a : I 
   intro c
   have h := selectedTermCode_value M (radius.rename some) (base.rename some) (pitch.rename some)
     (bit.rename some) (Number.length none) (extend a (List.replicate c.val true)) b c
-    (by simpa only [Number.rename, extend_some] using hb)
+    (by simpa only [Number.rename, extend_some] using! hb)
     (by simp [Number.length, extend])
   exact h
 

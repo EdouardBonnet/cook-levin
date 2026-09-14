@@ -2,7 +2,7 @@ import Lax429075Proofs.PairDecoding
 
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
 
 def decodingData (base : Register → Word) (xs rev : Word) (conj disj : Bool) : Data :=
   ⟨(⟨true, true, conj, disj⟩, xs.head?), Function.update (Function.update base .input xs.tail) .reverse rev⟩

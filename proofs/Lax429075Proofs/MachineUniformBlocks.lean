@@ -2,7 +2,7 @@ import Lax429075Proofs.MachineCircuitRuns
 
 namespace Lax429075Proofs.MachineCircuit
 
-open Lax554803.MachineModels CircuitBuilder
+open Lax434930.MachineModels CircuitBuilder
 
 lemma stepExpr_cost_exact (M : SingleTape) (radius : ℕ) (b : Bit M radius) :
     (stepExpr M radius b).cost = 5 * (casesList M radius).length + 1 := by

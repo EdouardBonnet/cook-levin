@@ -3,7 +3,7 @@ import Lax429075.Tseitin
 
 namespace Lax429075Proofs.CNFOutput
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
 open Lax429075.Encoding Lax429075.CNF Lax429075.Circuits Lax429075.Tseitin
 
 variable {K Aux : Type} [DecidableEq K]

@@ -1,10 +1,12 @@
 import Lax429075Proofs.StreamingAppend
-import Lax979537Proofs.StackClear
+import Lax434930Proofs.InclusionAux.TimeCompiler.StackClear
+
+set_option backward.isDefEq.respectTransparency false
 
 namespace Lax429075Proofs.Streaming
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
-open Lax979537Proofs.StackRename Lax979537Proofs.StackClear
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackRename Lax434930Proofs.InclusionAux.TimeCompiler.StackClear
 open CNFOutput Lax434930.PolynomialTime Polynomial
 
 variable {I W V : Type} [DecidableEq I] [DecidableEq W] [DecidableEq V]
@@ -70,7 +72,7 @@ lemma bindStore_transfer (a : I → Word) (tail w : Word) :
       (bindStore a tail w [] none) (3 * w.length + 2) := by
   have h := transfer_store (Key.work (.inl false)) (.work (.inl true)) (by simp)
     (bindStore (W := W) (V := V) a tail [] w.reverse none)
-  convert h using 1
+  convert! h using 1
   · apply Store.ext <;> try rfl
     funext k
     rcases k with i | _ | (b | (w | v)) <;> try simp [bindStore]
@@ -81,7 +83,7 @@ lemma bindStore_clear (a : I → Word) (tail w : Word) :
     Executes (clear (Key.work (.inl true))) (bindStore (W := W) (V := V) a tail w [] none)
       (store a tail none) (2 * w.length + 2) := by
   have h := clear_store (Key.work (.inl true)) (bindStore (W := W) (V := V) a tail w [] none)
-  convert h using 1
+  convert! h using 1
   apply Store.ext <;> try rfl
   funext k
   rcases k with i | _ | (b | (w | v)) <;> try simp [bindStore, store]

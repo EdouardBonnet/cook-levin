@@ -2,7 +2,7 @@ import Lax429075Proofs.ClauseLoop
 
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram
 
 def checkedClauseFlags (xs ys : Word) (flags : Flags) : Flags :=
   {flags with

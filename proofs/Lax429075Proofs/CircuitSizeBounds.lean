@@ -3,7 +3,7 @@ import Lax429075Proofs.VerifierCircuit
 namespace Lax429075Proofs.VerifierCircuit
 
 open Lax434930.PolynomialTime Lax429075.CNF Lax429075.Circuits
-open Lax554803.MachineModels CircuitBuilder CertificateCircuit MachineCircuit
+open Lax434930.MachineModels CircuitBuilder CertificateCircuit MachineCircuit
 
 lemma prefixExpr_cost (bound : ℕ) : (prefixExpr bound).cost = 3 * (bound - 1) + 1 := by
   simp [prefixExpr, allExpr_cost, List.map_map, Function.comp_def, Expr.cost, Nat.mul_comm] <;> omega

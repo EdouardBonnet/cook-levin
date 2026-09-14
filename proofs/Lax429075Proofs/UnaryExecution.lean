@@ -1,8 +1,10 @@
 import Lax429075Proofs.ParserStore
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram
 
 lemma indexBody_executes (xs ys cursor : Word) (flags : Flags) (scratch : Option Bool) :
     Executes indexBody (parsing xs ys cursor flags scratch)
@@ -32,6 +34,6 @@ lemma indexLoop_executes (xs ys cursor : Word) (flags : Flags) (hv : flags.valid
         (by simp [continuing, parsing, hv])
         (indexBody_executes xs ys cursor flags (some true)) (ih cursor.tail)
       have ht : 2 + (3 * (unary xs).index + 1) + 1 = 3 * ((unary xs).index + 1) + 1 := by omega
-      simpa [unary, ht, List.drop_tail] using h
+      simpa [unary, ht, List.drop_tail] using! h
 
 end Lax429075Proofs.VerifierProgram

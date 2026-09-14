@@ -3,7 +3,7 @@ import Lax429075Proofs.VerifierSemantics
 
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram
 
 lemma ready_eq (xs ys : Word) (good : Bool) :
     ready xs ys good = parsing xs ys [] ⟨good, false, true, false⟩ none := by

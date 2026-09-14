@@ -3,7 +3,7 @@ import Lax434930.Certificates
 
 namespace Lax429075Proofs.WindowMachine
 
-open Turing Lax554803.MachineModels Lax554803.PolynomialTime Lax434930.Certificates
+open Turing Lax434930.MachineModels Lax434930.PolynomialTime Lax434930.Certificates
 
 lemma polynomial_monotone (p : Polynomial ℕ) : Monotone p.eval := by
   intro x y hxy
@@ -48,7 +48,7 @@ lemma bounded_verifier (V : Language) (hV : V ∈ P) (p : Polynomial ℕ) :
       (pair x y).length < R.eval x.length ∧
       (M.accept ((next M (R.eval x.length))^[R.eval x.length]
         (initial M (R.eval x.length) (pair x y))).state = true ↔ pair x y ∈ V) := by
-  have hS : V ∈ SingleTapeP := by rw [Lax554803.ModelEquivalence.singleTapeP_eq_P]; exact hV
+  have hS : V ∈ SingleTapeP := by rw [Lax434930.ModelEquivalence.singleTapeP_eq_P]; exact hV
   obtain ⟨M, q, hM⟩ := hS
   refine ⟨M, horizon p q, ?_⟩
   intro x y hy

@@ -1,9 +1,11 @@
 import Lax429075Proofs.FormulaParsing
 import Lax429075Proofs.ClauseExecution
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.VerifierProgram
 
-open Lax434930.PolynomialTime Lax979537Proofs.StackProgram Lax429075.CNF
+open Lax434930.PolynomialTime Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax429075.CNF
 
 def formulaTail : Code := .seq (.loop continuing formulaBody) requireTerminator
 
@@ -29,7 +31,7 @@ lemma formulaTail_executes (xs ys : Word) (flags : Flags) (hv : flags.valid = tr
       have h := Executes.seq (Executes.loop_false (p := formulaBody)
         (b := continuing) (s := parsing [] ys [] flags none) (by simp [continuing, parsing]))
         (parsing_require [] ys [] flags none)
-      simpa [formulaTail, scanFormula, scanMany, formulaFlags, eval, lastClause] using h
+      simpa [formulaTail, scanFormula, scanMany, formulaFlags, eval, lastClause] using! h
     | cons b xs =>
       cases b with
       | false =>
@@ -40,7 +42,7 @@ lemma formulaTail_executes (xs ys : Word) (flags : Flags) (hv : flags.valid = tr
         have h := Executes.seq (Executes.loop_false (p := formulaBody)
           (b := continuing) (s := parsing xs ys [] flags (some false))
           (by simp [continuing, parsing])) (parsing_require xs ys [] flags (some false))
-        simpa [formulaTail, scanFormula, scanMany, formulaFlags, eval, lastClause, hv] using h
+        simpa [formulaTail, scanFormula, scanMany, formulaFlags, eval, lastClause, hv] using! h
       | true =>
         obtain ⟨a, haBound, hl⟩ := clause_executes xs ys flags (some true) hv
         have hr := parsing_read (scanClause xs).rest ys [] (checkedClauseFlags xs ys flags)
@@ -73,6 +75,6 @@ lemma formulaTail_executes (xs ys : Word) (flags : Flags) (hv : flags.valid = tr
             simp only [List.length_cons]
             nlinarith [Nat.zero_le (xs.length ^ 2 * ys.length), Nat.zero_le (xs.length * ys.length)]
           · rw [formulaFlags_cons] at h
-            simpa only [formulaTail, formulaBody, scanFormula, scanMany, ha, Bool.true_and] using h
+            simpa only [formulaTail, formulaBody, scanFormula, scanMany, ha, Bool.true_and] using! h
 
 end Lax429075Proofs.VerifierProgram

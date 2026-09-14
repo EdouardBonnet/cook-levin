@@ -1,9 +1,11 @@
 import Lax429075Proofs.StreamingPrograms
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.Streaming
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer
-open Lax979537Proofs.StackRename CNFOutput Lax434930.PolynomialTime Polynomial
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackRename CNFOutput Lax434930.PolynomialTime Polynomial
 
 variable {I : Type} [DecidableEq I]
 
@@ -33,7 +35,7 @@ lemma writeWord_executes {K : Type} [DecidableEq K] (out : K) (w : Word) (s : Bi
     Executes (writeWord out w) s (emitted out w s) (w.length + 1) := by
   induction w generalizing s with
   | nil =>
-    convert Executes.atom (.load (fun _ : Unit × Option Bool => ((), none))) s using 1
+    convert! Executes.atom (.load (fun _ : Unit × Option Bool => ((), none))) s using 1
     apply Store.ext
     · exact Prod.ext (Subsingleton.elim _ _) rfl
     · simp [emitted, Op.apply]
@@ -41,7 +43,7 @@ lemma writeWord_executes {K : Type} [DecidableEq K] (out : K) (w : Word) (s : Bi
     have hp := Executes.atom (.push out (fun _ : Unit × Option Bool => b)) s
     have hh := ih (Op.apply (.push out (fun _ : Unit × Option Bool => b)) s)
     have he := Executes.seq hp hh
-    convert he using 1
+    convert! he using 1
     · simp [emitted, Op.apply, List.reverse_cons, List.append_assoc, Function.update_idem]
     · simp; omega
 

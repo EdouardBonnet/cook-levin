@@ -1,10 +1,12 @@
 import Lax429075Proofs.InitialCircuitCells
 import Lax429075Proofs.MachineUniformBlocks
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.CertificateCircuit
 
 open Lax434930.PolynomialTime Lax434930.Certificates Lax429075.CNF
-open Lax554803.MachineModels CircuitBuilder WindowMachine
+open Lax434930.MachineModels CircuitBuilder WindowMachine
 open scoped Classical
 
 noncomputable def initialBit (M : SingleTape) (x : Word) (bound radius : ℕ)

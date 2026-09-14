@@ -1,9 +1,11 @@
 import Lax429075Proofs.StreamingAppend
 import Lax429075Proofs.StackMapTransfer
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax429075Proofs.Streaming
 
-open Lax979537Proofs.StackProgram Lax979537Proofs.StackTransfer Lax979537Proofs.StackCopy
+open Lax434930Proofs.InclusionAux.TimeCompiler.StackProgram Lax434930Proofs.InclusionAux.TimeCompiler.StackTransfer Lax434930Proofs.InclusionAux.TimeCompiler.StackCopy
 open Lax434930.PolynomialTime Polynomial
 
 variable {I : Type} [DecidableEq I]
@@ -20,14 +22,14 @@ noncomputable def Emitter.sourceMap (i : I) (f : Bool → Bool) :
     let mid : BitStore (Key I Bool) Unit :=
       ⟨((), none), Function.update s.stk (.work false) (a i)⟩
     have hc : Executes (copy (.input i) (.work false) (.work true)) s mid (7 * (a i).length + 4) := by
-      simpa [s, mid, store] using copy_store (Key.input i) (.work false) (.work true)
+      simpa [s, mid, store] using! copy_store (Key.input i) (.work false) (.work true)
         (by simp) (by simp) (by simp) s rfl
     have ht := StackMapTransfer.transfer_store (Key.work false) .output (by simp) f mid
     refine ⟨(7 * (a i).length + 4) + (3 * (a i).length + 2), ?_, ?_⟩
     · simp only [eval_add, eval_mul, eval_C, eval_X]
       have := hb i
       omega
-    · convert Executes.seq hc ht using 1
+    · convert! Executes.seq hc ht using 1
       · apply Store.ext
         · rfl
         · funext k

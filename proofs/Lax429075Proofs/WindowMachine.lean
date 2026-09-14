@@ -2,7 +2,7 @@ import Lax429075Proofs.WindowPositions
 
 namespace Lax429075Proofs.WindowMachine
 
-open Turing Lax554803.MachineModels Lax554803.PolynomialTime
+open Turing Lax434930.MachineModels Lax434930.PolynomialTime
 
 structure Cfg (M : SingleTape) (radius : ℕ) where
   state : M.Q
